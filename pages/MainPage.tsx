@@ -18,9 +18,6 @@ import {fetchAddress} from '../actions/AddressActions';
 import {getLocation} from '../actions/LocationActions';
 
 const MainPage = () => {
-  const addressReducer = useSelector(
-    (state: RootReducerType) => state.AddressReducer,
-  );
   const dispatch = useDispatch();
   const locationReducer = useSelector(
     (state: RootReducerType) => state.LocationReducer,
