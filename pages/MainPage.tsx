@@ -13,14 +13,22 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Geolocation from '@react-native-community/geolocation';
+import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
 import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
 import {getLocation} from '../actions/LocationActions';
 
-const MainPage = () => {
+type Props = {
+  navigation: MainPageNavigationProp;
+};
+
+const MainPage = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const locationReducer = useSelector(
     (state: RootReducerType) => state.LocationReducer,
+  );
+  const addressReducer = useSelector(
+    (state: RootReducerType) => state.AddressReducer,
   );
 
   const [refreshing, setRefreshing] = useState(false);
@@ -67,6 +75,20 @@ const MainPage = () => {
     );
   };
 
+  const goToListPage = (category: string) => {
+    if (addressReducer.loading || addressReducer.error) {
+      Alert.alert('맛집찾아줘', '현재 유저의 위치가 파악되지 않았습니다.');
+      return;
+    }
+
+    navigation.navigate('MatzipListPage', {
+      address1Name: addressReducer.address.area1Name,
+      address2Name: addressReducer.address.area2Name,
+      address3Name: addressReducer.address.area3Name,
+      category,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -80,26 +102,36 @@ const MainPage = () => {
               ...styles.row,
               flex: 0.7,
               ...styles.shadowBox,
-            }}>
+            }}
+            onPress={() => goToListPage('맛집')}>
             <Text style={{...styles.text}}>근처맛집</Text>
           </TouchableOpacity>
           <View style={{...styles.row}}>
-            <TouchableOpacity style={{...styles.column, ...styles.shadowBox}}>
+            <TouchableOpacity
+              onPress={() => goToListPage('한식')}
+              style={{...styles.column, ...styles.shadowBox}}>
               <Text style={{...styles.text}}>한식</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.column, ...styles.shadowBox}}>
+            <TouchableOpacity
+              onPress={() => goToListPage('일식')}
+              style={{...styles.column, ...styles.shadowBox}}>
               <Text style={{...styles.text}}>일식</Text>
             </TouchableOpacity>
           </View>
           <View style={{...styles.row}}>
-            <TouchableOpacity style={{...styles.column, ...styles.shadowBox}}>
+            <TouchableOpacity
+              onPress={() => goToListPage('양식')}
+              style={{...styles.column, ...styles.shadowBox}}>
               <Text style={{...styles.text}}>양식</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.column, ...styles.shadowBox}}>
+            <TouchableOpacity
+              onPress={() => goToListPage('중식')}
+              style={{...styles.column, ...styles.shadowBox}}>
               <Text style={{...styles.text}}>중식</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
+            onPress={() => goToListPage('디저트')}
             style={{...styles.row, flex: 0.7, ...styles.shadowBox}}>
             <Text style={{...styles.text}}>디저트</Text>
           </TouchableOpacity>
