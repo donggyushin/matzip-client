@@ -82,9 +82,9 @@ const MainPage = ({navigation}: Props) => {
     }
 
     navigation.navigate('MatzipListPage', {
-      address1Name: addressReducer.address.area1Name,
-      address2Name: addressReducer.address.area2Name,
-      address3Name: addressReducer.address.area3Name,
+      area1Name: addressReducer.address.area1Name,
+      area2Name: addressReducer.address.area2Name,
+      area3Name: addressReducer.address.area3Name,
       category,
     });
   };

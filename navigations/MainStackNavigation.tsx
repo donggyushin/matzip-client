@@ -11,9 +11,9 @@ import {RouteProp} from '@react-navigation/native';
 type MainStackParamList = {
   MainPage: undefined;
   MatzipListPage: {
-    address1Name: string;
-    address2Name: string;
-    address3Name: string;
+    area1Name: string;
+    area2Name: string;
+    area3Name: string;
     category: string;
   };
 };
