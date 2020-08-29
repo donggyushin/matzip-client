@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {APP_NAME} from '../constants/Constants';
 import LoadingComponent from '../components/LoadingComponent';
 import MatzipDataCellComponent from '../components/MatzipDataCell';
+import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
 import {RootReducerType} from '../Store';
 import {fetchingMatzipData} from '../actions/MatzipDataListActions';
 
@@ -29,7 +30,22 @@ const MatzipListPage = ({route, navigation}: Props) => {
 
   const callFetchingMatzipListData = () => {
     const {area1Name, area2Name, area3Name, category} = route.params;
-    dispatch(fetchingMatzipData(area1Name, area2Name, area3Name, category));
+    let categoryString = category;
+    if (categoryString === '양식') {
+      categoryString = '데이트';
+    } else if (categoryString === '중식') {
+      categoryString = '중국집';
+    }
+    dispatch(
+      fetchingMatzipData(area1Name, area2Name, area3Name, categoryString),
+    );
+  };
+
+  const goToDetail = (matzipData: MatzipDataType) => {
+    navigation.navigate('MatzipDetailPage', {
+      detailPageUrl: matzipData.detailPageUrl,
+      title: matzipData.title,
+    });
   };
 
   const goBack = () => {
@@ -54,7 +70,10 @@ const MatzipListPage = ({route, navigation}: Props) => {
           data={matzipListDataState.matzipList}
           keyExtractor={(_, index) => `${index}`}
           renderItem={(data) => (
-            <MatzipDataCellComponent matzipDataCell={data.item} />
+            <MatzipDataCellComponent
+              goToDetail={goToDetail}
+              matzipDataCell={data.item}
+            />
           )}
         />
       </SafeAreaView>

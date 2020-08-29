@@ -120,9 +120,9 @@ const MainPage = ({navigation}: Props) => {
           </View>
           <View style={{...styles.row}}>
             <TouchableOpacity
-              onPress={() => goToListPage('양식')}
+              onPress={() => goToListPage('데이트')}
               style={{...styles.column, ...styles.shadowBox}}>
-              <Text style={{...styles.text}}>양식</Text>
+              <Text style={{...styles.text}}>데이트</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => goToListPage('중식')}

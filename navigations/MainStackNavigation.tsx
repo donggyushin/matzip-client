@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/stack';
 
 import MainPage from '../pages/MainPage';
+import MatzipDetailPage from '../pages/MatzipDetailPage';
 import MatzipListPage from '../pages/MatzipListPage';
 import React from 'react';
 import {RouteProp} from '@react-navigation/native';
@@ -15,6 +16,10 @@ type MainStackParamList = {
     area2Name: string;
     area3Name: string;
     category: string;
+  };
+  MatzipDetailPage: {
+    detailPageUrl: string;
+    title: string;
   };
 };
 
@@ -31,10 +36,19 @@ export type MatzipListPageRouteProp = RouteProp<
   'MatzipListPage'
 >;
 
+export type MatzipDetailPageRouteProp = RouteProp<
+  MainStackParamList,
+  'MatzipDetailPage'
+>;
+
 const Stack = createStackNavigator<MainStackParamList>();
 
 type MatzipListProps = {
   route: MatzipListPageRouteProp;
+};
+
+type MatzipDetailProps = {
+  route: MatzipDetailPageRouteProp;
 };
 
 const MainStackNavigation = () => {
@@ -55,6 +69,13 @@ const MainStackNavigation = () => {
             route.params.category === '맛집'
               ? '근처맛집'
               : route.params.category,
+        })}
+      />
+      <Stack.Screen
+        name={'MatzipDetailPage'}
+        component={MatzipDetailPage}
+        options={({route}: MatzipDetailProps) => ({
+          title: route.params.title,
         })}
       />
     </Stack.Navigator>
