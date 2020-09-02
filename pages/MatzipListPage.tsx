@@ -1,8 +1,4 @@
-import {Alert, FlatList, SafeAreaView, Text} from 'react-native';
-import {
-  MatzipListPageNavigationProp,
-  MatzipListPageRouteProp,
-} from '../navigations/MainStackNavigation';
+import {Alert, FlatList, SafeAreaView} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -10,15 +6,11 @@ import {APP_NAME} from '../constants/Constants';
 import LoadingComponent from '../components/LoadingComponent';
 import MatzipDataCellComponent from '../components/MatzipDataCell';
 import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
+import {MatzipListProps} from '../navigations/MainStackNavigation';
 import {RootReducerType} from '../Store';
 import {fetchingMatzipData} from '../actions/MatzipDataListActions';
 
-type Props = {
-  route: MatzipListPageRouteProp;
-  navigation: MatzipListPageNavigationProp;
-};
-
-const MatzipListPage = ({route, navigation}: Props) => {
+const MatzipListPage = ({route, navigation}: MatzipListProps) => {
   const dispatch = useDispatch();
   const matzipListDataState = useSelector(
     (state: RootReducerType) => state.MatzipDataListReducer,

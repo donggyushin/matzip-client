@@ -41,14 +41,21 @@ export type MatzipDetailPageRouteProp = RouteProp<
   'MatzipDetailPage'
 >;
 
+export type MatzipDetailPageNavigationProp = StackNavigationProp<
+  MainStackParamList,
+  'MatzipDetailPage'
+>;
+
 const Stack = createStackNavigator<MainStackParamList>();
 
-type MatzipListProps = {
+export type MatzipListProps = {
   route: MatzipListPageRouteProp;
+  navigation: MatzipListPageNavigationProp;
 };
 
-type MatzipDetailProps = {
+export type MatzipDetailProps = {
   route: MatzipDetailPageRouteProp;
+  navigation: MatzipDetailPageNavigationProp;
 };
 
 const MainStackNavigation = () => {

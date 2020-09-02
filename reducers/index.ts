@@ -1,12 +1,14 @@
-import AddressReducer from './AddressReducer'
-import LocationReducer from './LocationReducer'
-import MatzipDataListReducer from './MatzipDataListReducer'
-import { combineReducers } from 'redux'
+import AddressReducer from './AddressReducer';
+import LocationReducer from './LocationReducer';
+import MatzipDataListReducer from './MatzipDataListReducer';
+import MatzipDetailDataReducer from './MatzipDetailDataReducer';
+import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
   AddressReducer,
   MatzipDataListReducer,
-  LocationReducer
-})
+  LocationReducer,
+  MatzipDetailDataReducer,
+});
 
-export default rootReducer
+export default rootReducer;
