@@ -21,7 +21,7 @@ export const fetchMatzipDetailData = (url: string) => async (
     const response = await axios.get(`${ENDPOINT}/matzip/detail?url=${url}`);
     const data = response.data as MatzipDetailData;
 
-    dispatch({
+    return dispatch({
       type: MATZIP_DETAIL_FETCH_SUCCESS,
       payload: data,
     });
@@ -31,6 +31,7 @@ export const fetchMatzipDetailData = (url: string) => async (
       payload: '데이터를 받아오는데 실패하였습니다. ',
     });
   }
+
   dispatch({
     type: MATZIP_DETAIL_STOP_LOADING,
   });

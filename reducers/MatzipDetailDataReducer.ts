@@ -61,8 +61,9 @@ const fetchingFail = (
   if (action.type !== 'MATZIP_DETAIL_FETCH_FAIL') return state;
   const error = action.payload;
   return {
-    ...initialState,
+    ...state,
     error,
+    loading: false,
   };
 };
 
@@ -73,6 +74,7 @@ const fetchingSuccess = (
   if (action.type !== 'MATZIP_DETAIL_FETCH_SUCCESS') return state;
   const matzip = action.payload;
   return {
+    ...state,
     loading: false,
     matzip,
     error: '',
@@ -84,7 +86,7 @@ const stopLoading = (
   action: MatzipDetailDispatchType,
 ): InitialState => {
   return {
-    ...initialState,
+    ...state,
     loading: false,
   };
 };
@@ -94,7 +96,7 @@ const loading = (
   action: MatzipDetailDispatchType,
 ): InitialState => {
   return {
-    ...initialState,
+    ...state,
     loading: true,
   };
 };
