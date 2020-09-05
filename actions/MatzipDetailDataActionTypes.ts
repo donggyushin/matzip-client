@@ -36,7 +36,7 @@ export interface MatzipDetailData {
   phoneString: string;
   address1: string;
   address2: string;
-  workTime: string;
+  workTime: string[];
   siteUrl: string;
   menus: Menu[];
   visitorsPhotos: string[];

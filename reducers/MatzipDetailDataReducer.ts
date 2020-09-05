@@ -21,7 +21,7 @@ const initialState: InitialState = {
     phoneString: '',
     address1: '',
     address2: '',
-    workTime: '',
+    workTime: [],
     siteUrl: '',
     menus: [],
     visitorsPhotos: [],
