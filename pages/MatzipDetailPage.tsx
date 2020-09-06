@@ -11,8 +11,10 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {COLORS} from '../constants/Constants';
+import DividerComponent from '../components/DividerComponent';
 import LoadingComponent from '../components/LoadingComponent';
 import {MatzipDetailProps} from '../navigations/MainStackNavigation';
+import MenuComponent from '../components/MenuComponent';
 import {RootReducerType} from '../Store';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {fetchMatzipDetailData} from '../actions/MatzipDetailDataActions';
@@ -45,46 +47,63 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
     return (
       <SafeAreaView>
         <ScrollView contentContainerStyle={styles.scrollView}>
-          <View style={styles.row}>
+          {matzipDetailReducer.matzip.thumbnails.length < 4 &&
+          matzipDetailReducer.matzip.thumbnails.length >= 1 ? (
             <Image
+              style={{
+                width: windowWidth,
+                height: windowWidth,
+              }}
               source={{
                 uri: matzipDetailReducer.matzip.thumbnails[0],
               }}
-              style={{
-                width: windowWidth / 2,
-                height: windowWidth / 2,
-              }}
             />
-            <Image
-              source={{
-                uri: matzipDetailReducer.matzip.thumbnails[1],
-              }}
-              style={{
-                width: windowWidth / 2,
-                height: windowWidth / 2,
-              }}
-            />
-          </View>
-          <View style={styles.row}>
-            <Image
-              source={{
-                uri: matzipDetailReducer.matzip.thumbnails[2],
-              }}
-              style={{
-                width: windowWidth / 2,
-                height: windowWidth / 2,
-              }}
-            />
-            <Image
-              source={{
-                uri: matzipDetailReducer.matzip.thumbnails[3],
-              }}
-              style={{
-                width: windowWidth / 2,
-                height: windowWidth / 2,
-              }}
-            />
-          </View>
+          ) : undefined}
+          {matzipDetailReducer.matzip.thumbnails.length >= 4 && (
+            <View>
+              <View style={styles.row}>
+                <Image
+                  source={{
+                    uri: matzipDetailReducer.matzip.thumbnails[0],
+                  }}
+                  style={{
+                    width: windowWidth / 2,
+                    height: windowWidth / 2,
+                  }}
+                />
+                <Image
+                  source={{
+                    uri: matzipDetailReducer.matzip.thumbnails[1],
+                  }}
+                  style={{
+                    width: windowWidth / 2,
+                    height: windowWidth / 2,
+                  }}
+                />
+              </View>
+              <View style={styles.row}>
+                <Image
+                  source={{
+                    uri: matzipDetailReducer.matzip.thumbnails[2],
+                  }}
+                  style={{
+                    width: windowWidth / 2,
+                    height: windowWidth / 2,
+                  }}
+                />
+                <Image
+                  source={{
+                    uri: matzipDetailReducer.matzip.thumbnails[3],
+                  }}
+                  style={{
+                    width: windowWidth / 2,
+                    height: windowWidth / 2,
+                  }}
+                />
+              </View>
+            </View>
+          )}
+
           <View
             style={{
               flexDirection: 'row',
@@ -193,11 +212,7 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                 // alignItems: 'center',
               }}>
               <Image
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 10,
-                }}
+                style={styles.iconImage}
                 source={require('../assets/icons8-location-96.png')}
               />
               <View>
@@ -236,11 +251,7 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                   // alignItems: 'center',
                 }}>
                 <Image
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 10,
-                  }}
+                  style={styles.iconImage}
                   source={require('../assets/icons8-clock-96.png')}
                 />
 
@@ -267,7 +278,11 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                         </View>
                       );
                     } else {
-                      return <Text style={{...styles.fontSize}}>{value}</Text>;
+                      return (
+                        <Text key={index} style={{...styles.fontSize}}>
+                          {value}
+                        </Text>
+                      );
                     }
                   })}
                 </View>
@@ -307,6 +322,87 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                 </View>
               </View>
             ) : undefined}
+            {matzipDetailReducer.matzip.siteUrl && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginTop: 20,
+                  alignItems: 'center',
+                }}>
+                <Image
+                  style={styles.iconImage}
+                  source={require('../assets/icons8-linking-96.png')}
+                />
+                <TouchableOpacity>
+                  <View
+                    style={{
+                      backgroundColor: '#4267B2',
+                      paddingVertical: 4,
+                      borderRadius: 4,
+                      paddingHorizontal: 10,
+                    }}>
+                    <Text style={{...styles.fontSize, color: 'white'}}>
+                      {'사이트 바로가기'}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 20,
+              }}>
+              <Image
+                style={styles.iconImage}
+                source={require('../assets/icons8-restaurant-menu-256.png')}
+              />
+              <Text style={styles.fontSize}>{'메뉴'}</Text>
+            </View>
+            <DividerComponent />
+            {matzipDetailReducer.matzip.menus.length !== 0 && (
+              <View>
+                {matzipDetailReducer.matzip.menus.map((data, index) => {
+                  if (matzipDetailReducer.matzip.menus.length - 1 === index) {
+                    return (
+                      <View>
+                        <MenuComponent menu={data} key={index} />
+                        {matzipDetailReducer.matzip.menuUrl.length !== 0 && (
+                          <View
+                            style={{
+                              width: '100%',
+                              alignItems: 'center',
+                              marginTop: 20,
+                            }}>
+                            <TouchableOpacity>
+                              <View
+                                style={{
+                                  backgroundColor: COLORS.orange,
+                                  paddingVertical: 10,
+                                  paddingHorizontal: 20,
+                                  borderRadius: 4,
+                                }}>
+                                <Text
+                                  style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    fontWeight: '900',
+                                  }}>
+                                  {'메뉴더보기'}
+                                </Text>
+                              </View>
+                            </TouchableOpacity>
+                          </View>
+                        )}
+                      </View>
+                    );
+                  } else {
+                    return <MenuComponent menu={data} key={index} />;
+                  }
+                })}
+              </View>
+            )}
+            <DividerComponent />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -334,6 +430,11 @@ const styles = StyleSheet.create({
   },
   fontBlue: {
     color: COLORS.blue,
+  },
+  iconImage: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 });
 

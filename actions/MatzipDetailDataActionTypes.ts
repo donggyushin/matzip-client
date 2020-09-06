@@ -11,7 +11,7 @@ interface VisitorReview {
   date: string;
 }
 
-interface Menu {
+export interface Menu {
   text: string;
   price: string;
   imageUrl: string;
@@ -39,6 +39,7 @@ export interface MatzipDetailData {
   workTime: string[];
   siteUrl: string;
   menus: Menu[];
+  menuUrl: string;
   visitorsPhotos: string[];
   visitorReviews: VisitorReview[];
   blogReviews: BlogReview[];

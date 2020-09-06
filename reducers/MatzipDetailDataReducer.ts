@@ -24,6 +24,7 @@ const initialState: InitialState = {
     workTime: [],
     siteUrl: '',
     menus: [],
+    menuUrl: '',
     visitorsPhotos: [],
     visitorReviews: [],
     blogReviews: [],
