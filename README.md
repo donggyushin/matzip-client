@@ -35,3 +35,6 @@ android device의 위치 받아와주는 부분 구현해주시면 감사하겠�
  2. git checkout -b <브랜치명> 명령어로 새로운 브랜치를 생성하고 해당 브랜치에서 작업한다. (브랜치를 따오기 전에 항상 프로젝트가 최신화 되어져 있는 지 확인하여 주세요.)
  3. 원하는 작업을 모두 마친 후 git push origin <브랜치명> 으로 푸쉬한다. 
  4. https://github.com/donggyushin/matzip-client/branches 로 들어간다. 
+ 5. 본인의 브랜치를 찾아서 Compare 버튼을 누른다. 
+ 6. 본인의 브랜치가 맞다면 Create pull request 버튼을 누른다. 
+ 7. 원하는 Comment를 남기고 Create pull request 버튼을 누른다. 
