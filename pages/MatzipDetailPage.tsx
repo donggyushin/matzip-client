@@ -262,7 +262,7 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                       matzipDetailReducer.matzip.workTime.length - 1
                     ) {
                       return (
-                        <View style={{flexDirection: 'row'}}>
+                        <View key={index} style={{flexDirection: 'row'}}>
                           <Text style={{...styles.fontSize, marginRight: 5}}>
                             {value}
                           </Text>
