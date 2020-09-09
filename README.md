@@ -1,7 +1,11 @@
 # matzip-client
-해당 어플리케이션은 react-native로 작성되어져 있지만 ios만 지원하고 있습니다.\
+해당 어플리케이션은 react-native로 작성되어져 있지만 ios만 지원하고 있습니다.
 android device의 위치 받아와주는 부분 구현해주시면 감사하겠습니다 :)
 <br/><br/>
+
+## API
+
+ - 준비중입니다
 
 ## Precondition
  - nodejs
