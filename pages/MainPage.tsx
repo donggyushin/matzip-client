@@ -64,7 +64,6 @@ const MainPage = ({navigation}: Props) => {
         const currentLongitude = JSON.stringify(position.coords.longitude);
         //getting the Longitude from the location json
         const currentLatitude = JSON.stringify(position.coords.latitude);
-        console.log(currentLongitude, currentLatitude);
         dispatch(getLocation(currentLongitude, currentLatitude));
         setRefreshing(false);
       },
