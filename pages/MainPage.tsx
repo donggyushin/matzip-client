@@ -13,6 +13,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Geolocation from '@react-native-community/geolocation';
+import InitialScreenComponent from '../components/InitialScreenComponent';
 import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
 import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
@@ -29,6 +30,25 @@ const MainPage = ({navigation}: Props) => {
   );
   const addressReducer = useSelector(
     (state: RootReducerType) => state.AddressReducer,
+  );
+
+  const chineseReducer = useSelector(
+    (state: RootReducerType) => state.ChineseDataListReducer,
+  );
+  const dateReducer = useSelector(
+    (state: RootReducerType) => state.DateDataListReducer,
+  );
+  const dessertReducer = useSelector(
+    (state: RootReducerType) => state.DessertDataListReducer,
+  );
+  const japaneseReducer = useSelector(
+    (state: RootReducerType) => state.JapaneseDataListReducer,
+  );
+  const koreanReducer = useSelector(
+    (state: RootReducerType) => state.KoreanDataListReducer,
+  );
+  const nearByReducer = useSelector(
+    (state: RootReducerType) => state.NearByDataListReducer,
   );
 
   const [refreshing, setRefreshing] = useState(false);
@@ -55,6 +75,13 @@ const MainPage = ({navigation}: Props) => {
       );
     }
   }, [locationReducer.loading]);
+
+  useEffect(() => {
+    if (!addressReducer.loading) {
+      console.log('주소를 불러옴');
+      console.log(addressReducer.address.area1Name);
+    }
+  }, [addressReducer.loading]);
 
   const getCurrentLocation = () => {
     //alert("callLocation Called");
@@ -89,6 +116,17 @@ const MainPage = ({navigation}: Props) => {
       category,
     });
   };
+
+  if (
+    chineseReducer.loading ||
+    dateReducer.loading ||
+    dessertReducer.loading ||
+    japaneseReducer.loading ||
+    koreanReducer.loading ||
+    nearByReducer.loading
+  ) {
+    return <InitialScreenComponent />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
