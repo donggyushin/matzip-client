@@ -12,10 +12,18 @@ import {
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {CategoryType} from '../types/Types';
 import Geolocation from '@react-native-community/geolocation';
+import InitialScreenComponent from '../components/InitialScreenComponent';
 import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
 import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
+import {fetchingChineseData} from '../actions/ChineseDataListActions';
+import {fetchingDateData} from '../actions/DateDataListActions';
+import {fetchingDessertData} from '../actions/DessertDataListActions';
+import {fetchingJapaneseData} from '../actions/JapaneseDataListActions';
+import {fetchingKoreanData} from '../actions/KoreanDataListActions';
+import {fetchingNearBy} from '../actions/NearByDataListActions';
 import {getLocation} from '../actions/LocationActions';
 
 type Props = {
@@ -29,6 +37,25 @@ const MainPage = ({navigation}: Props) => {
   );
   const addressReducer = useSelector(
     (state: RootReducerType) => state.AddressReducer,
+  );
+
+  const chineseReducer = useSelector(
+    (state: RootReducerType) => state.ChineseDataListReducer,
+  );
+  const dateReducer = useSelector(
+    (state: RootReducerType) => state.DateDataListReducer,
+  );
+  const dessertReducer = useSelector(
+    (state: RootReducerType) => state.DessertDataListReducer,
+  );
+  const japaneseReducer = useSelector(
+    (state: RootReducerType) => state.JapaneseDataListReducer,
+  );
+  const koreanReducer = useSelector(
+    (state: RootReducerType) => state.KoreanDataListReducer,
+  );
+  const nearByReducer = useSelector(
+    (state: RootReducerType) => state.NearByDataListReducer,
   );
 
   const [refreshing, setRefreshing] = useState(false);
@@ -46,7 +73,10 @@ const MainPage = ({navigation}: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!locationReducer.loading) {
+    if (
+      locationReducer.location.latitude &&
+      locationReducer.location.longitude
+    ) {
       dispatch(
         fetchAddress(
           locationReducer.location.longitude,
@@ -54,7 +84,20 @@ const MainPage = ({navigation}: Props) => {
         ),
       );
     }
-  }, [locationReducer.loading]);
+  }, [locationReducer.location]);
+
+  // 모든 데이터를 호출
+  useEffect(() => {
+    const {area1Name, area2Name, area3Name} = addressReducer.address;
+    if (area1Name && area2Name && area3Name) {
+      dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
+      dispatch(fetchingDateData(area1Name, area2Name, area3Name));
+      dispatch(fetchingDessertData(area1Name, area2Name, area3Name));
+      dispatch(fetchingJapaneseData(area1Name, area2Name, area3Name));
+      dispatch(fetchingKoreanData(area1Name, area2Name, area3Name));
+      dispatch(fetchingNearBy(area1Name, area2Name, area3Name));
+    }
+  }, [addressReducer.address]);
 
   const getCurrentLocation = () => {
     //alert("callLocation Called");
@@ -76,7 +119,7 @@ const MainPage = ({navigation}: Props) => {
     );
   };
 
-  const goToListPage = (category: string) => {
+  const goToListPage = (category: CategoryType) => {
     if (addressReducer.loading || addressReducer.error) {
       Alert.alert('맛집찾아줘', '현재 유저의 위치가 파악되지 않았습니다.');
       return;
@@ -89,6 +132,17 @@ const MainPage = ({navigation}: Props) => {
       category,
     });
   };
+
+  if (
+    chineseReducer.loading ||
+    dateReducer.loading ||
+    dessertReducer.loading ||
+    japaneseReducer.loading ||
+    koreanReducer.loading ||
+    nearByReducer.loading
+  ) {
+    return <InitialScreenComponent />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>

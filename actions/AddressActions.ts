@@ -13,11 +13,10 @@ import axios from 'axios';
 export const fetchAddress = (longitude: string, latitude: string) => async (
   dispatch: Dispatch<AddressDispatchType>,
 ) => {
+  dispatch({
+    type: ADDRESS_LOADING,
+  });
   try {
-    dispatch({
-      type: ADDRESS_LOADING,
-    });
-
     const res = await axios.get(
       `${ENDPOINT}/address?longitude=${longitude}&latitude=${latitude}`,
     );

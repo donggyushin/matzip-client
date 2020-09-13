@@ -1,51 +1,83 @@
-import { AddressDispatchType, AddressType, FETCH_ADDRESS_FAIL, FETCH_ADDRESS_SUCCESS } from '../actions/AddressActionTypes'
+import {
+  AddressDispatchType,
+  AddressType,
+  FETCH_ADDRESS_FAIL,
+  FETCH_ADDRESS_SUCCESS,
+} from '../actions/AddressActionTypes';
 
 interface InitialState {
-  loading: boolean
-  address: AddressType
-  error: string
+  loading: boolean;
+  address: AddressType;
+  error: string;
 }
 
 const initialState: InitialState = {
   loading: true,
   address: {
-    area1Name: "",
-    area2Name: "",
-    area3Name: ""
+    area1Name: '',
+    area2Name: '',
+    area3Name: '',
   },
-  error: ""
-}
+  error: '',
+};
 
-const AddressReducer = (state = initialState, action: AddressDispatchType): InitialState => {
+const AddressReducer = (
+  state = initialState,
+  action: AddressDispatchType,
+): InitialState => {
   switch (action.type) {
     case FETCH_ADDRESS_FAIL:
-      return fetchAddressFail(state, action)
+      return fetchAddressFail(state, action);
     case FETCH_ADDRESS_SUCCESS:
-      return fetchAddressSuccess(state, action)
+      return fetchAddressSuccess(state, action);
+    case 'ADDRESS_LOADING':
+      return loading(state, action);
     default:
-      return state
+      return state;
   }
-}
+};
 
-const fetchAddressSuccess = (state: InitialState, action: AddressDispatchType): InitialState => {
+const loading = (
+  state: InitialState,
+  action: AddressDispatchType,
+): InitialState => {
+  if (action.type !== 'ADDRESS_LOADING') return state;
+  return {
+    ...state,
+    loading: true,
+    address: {
+      area1Name: '',
+      area2Name: '',
+      area3Name: '',
+    },
+  };
+};
+
+const fetchAddressSuccess = (
+  state: InitialState,
+  action: AddressDispatchType,
+): InitialState => {
   if (action.type === FETCH_ADDRESS_SUCCESS) {
-    const address = action.payload
+    const address = action.payload;
     return {
       ...state,
       loading: false,
-      address
-    }
+      address,
+    };
   } else {
-    return fetchAddressFail(state, action)
+    return fetchAddressFail(state, action);
   }
-}
+};
 
-const fetchAddressFail = (state: InitialState, action: AddressDispatchType): InitialState => {
+const fetchAddressFail = (
+  state: InitialState,
+  action: AddressDispatchType,
+): InitialState => {
   return {
     ...state,
     loading: false,
-    error: "주소를 불러오는데 실패하였습니다."
-  }
-}
+    error: '주소를 불러오는데 실패하였습니다.',
+  };
+};
 
-export default AddressReducer
+export default AddressReducer;
