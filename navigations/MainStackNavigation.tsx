@@ -3,13 +3,14 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 
+import ImageDetailModal from '../components/ImageDetailModal';
 import MainPage from '../pages/MainPage';
 import MatzipDetailPage from '../pages/MatzipDetailPage';
 import MatzipListPage from '../pages/MatzipListPage';
 import React from 'react';
 import {RouteProp} from '@react-navigation/native';
 
-type MainStackParamList = {
+type StackParamList = {
   MainPage: undefined;
   MatzipListPage: {
     area1Name: string;
@@ -21,42 +22,56 @@ type MainStackParamList = {
     detailPageUrl: string;
     title: string;
   };
+  Main: undefined;
+  ImageModal: {
+    imageUrl: string;
+    title: string;
+  };
 };
 
 export type MainPageNavigationProp = StackNavigationProp<
-  MainStackParamList,
+  StackParamList,
   'MainPage'
 >;
 export type MatzipListPageNavigationProp = StackNavigationProp<
-  MainStackParamList,
+  StackParamList,
   'MatzipListPage'
 >;
 export type MatzipListPageRouteProp = RouteProp<
-  MainStackParamList,
+  StackParamList,
   'MatzipListPage'
 >;
-
-export type MatzipDetailPageRouteProp = RouteProp<
-  MainStackParamList,
-  'MatzipDetailPage'
->;
-
-export type MatzipDetailPageNavigationProp = StackNavigationProp<
-  MainStackParamList,
-  'MatzipDetailPage'
->;
-
-const Stack = createStackNavigator<MainStackParamList>();
-
 export type MatzipListProps = {
   route: MatzipListPageRouteProp;
   navigation: MatzipListPageNavigationProp;
 };
 
+export type MatzipDetailPageRouteProp = RouteProp<
+  StackParamList,
+  'MatzipDetailPage'
+>;
+
+export type MatzipDetailPageNavigationProp = StackNavigationProp<
+  StackParamList,
+  'MatzipDetailPage'
+>;
 export type MatzipDetailProps = {
   route: MatzipDetailPageRouteProp;
   navigation: MatzipDetailPageNavigationProp;
 };
+
+type ImageModalNavigationProp = StackNavigationProp<
+  StackParamList,
+  'ImageModal'
+>;
+type ImageModalRouteProp = RouteProp<StackParamList, 'ImageModal'>;
+export type ImageModalProps = {
+  route: ImageModalRouteProp;
+  navigation: ImageModalNavigationProp;
+};
+
+const Stack = createStackNavigator<StackParamList>();
+const RootStack = createStackNavigator<StackParamList>();
 
 const MainStackNavigation = () => {
   return (
@@ -89,4 +104,24 @@ const MainStackNavigation = () => {
   );
 };
 
-export default MainStackNavigation;
+const RootStackScreen = () => {
+  return (
+    <RootStack.Navigator mode={'modal'}>
+      <RootStack.Screen
+        name={'Main'}
+        component={MainStackNavigation}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        options={({route}: ImageModalProps) => ({
+          headerLeft: () => null,
+          title: route.params.title,
+        })}
+        name={'ImageModal'}
+        component={ImageDetailModal}
+      />
+    </RootStack.Navigator>
+  );
+};
+
+export default RootStackScreen;
