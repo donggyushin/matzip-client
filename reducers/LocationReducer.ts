@@ -1,35 +1,62 @@
-import { GET_LOCATION_SUCCESS, LocationDispatchType, LocationType } from "../actions/LocationActionTypes"
+import {
+  GET_LOCATION_SUCCESS,
+  LocationDispatchType,
+  LocationType,
+} from '../actions/LocationActionTypes';
 
 interface InitialState {
-  loading: boolean
-  location: LocationType
+  loading: boolean;
+  location: LocationType;
 }
 
 const initialState: InitialState = {
   loading: true,
   location: {
-    longitude: "",
-    latitude: ""
-  }
+    longitude: '',
+    latitude: '',
+  },
+};
 
-}
-
-const LocationReducer = (state = initialState, action: LocationDispatchType): InitialState => {
+const LocationReducer = (
+  state = initialState,
+  action: LocationDispatchType,
+): InitialState => {
   switch (action.type) {
     case GET_LOCATION_SUCCESS:
-      return getLocationSuccess(state, action)
+      return getLocationSuccess(state, action);
+    case 'GET_LOCATION_LOADING':
+      return loading(state, action);
     default:
-      return state
+      return state;
   }
-}
+};
 
-const getLocationSuccess = (state: InitialState, action: LocationDispatchType): InitialState => {
-  const location = action.payload
+const loading = (
+  state: InitialState,
+  action: LocationDispatchType,
+): InitialState => {
+  if (action.type !== 'GET_LOCATION_LOADING') return state;
+  return {
+    ...state,
+    loading: true,
+    location: {
+      longitude: '',
+      latitude: '',
+    },
+  };
+};
+
+const getLocationSuccess = (
+  state: InitialState,
+  action: LocationDispatchType,
+): InitialState => {
+  if (action.type !== 'GET_LOCATION_SUCCESS') return state;
+  const location = action.payload;
   return {
     ...state,
     loading: false,
-    location
-  }
-}
+    location,
+  };
+};
 
-export default LocationReducer
+export default LocationReducer;

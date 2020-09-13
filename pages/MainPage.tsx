@@ -23,6 +23,7 @@ import {fetchingDateData} from '../actions/DateDataListActions';
 import {fetchingDessertData} from '../actions/DessertDataListActions';
 import {fetchingJapaneseData} from '../actions/JapaneseDataListActions';
 import {fetchingKoreanData} from '../actions/KoreanDataListActions';
+import {fetchingNearBy} from '../actions/NearByDataListActions';
 import {getLocation} from '../actions/LocationActions';
 
 type Props = {
@@ -72,7 +73,10 @@ const MainPage = ({navigation}: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!locationReducer.loading) {
+    if (
+      locationReducer.location.latitude &&
+      locationReducer.location.longitude
+    ) {
       dispatch(
         fetchAddress(
           locationReducer.location.longitude,
@@ -80,28 +84,20 @@ const MainPage = ({navigation}: Props) => {
         ),
       );
     }
-  }, [locationReducer.loading]);
+  }, [locationReducer.location]);
 
   // 모든 데이터를 호출
   useEffect(() => {
-    if (!addressReducer.loading) {
-      const {area1Name, area2Name, area3Name} = addressReducer.address;
-      if (area1Name && area2Name && area3Name) {
-        dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
-        dispatch(fetchingDateData(area1Name, area2Name, area3Name));
-        dispatch(fetchingDessertData(area1Name, area2Name, area3Name));
-        dispatch(fetchingJapaneseData(area1Name, area2Name, area3Name));
-        dispatch(fetchingKoreanData(area1Name, area2Name, area3Name));
-      }
+    const {area1Name, area2Name, area3Name} = addressReducer.address;
+    if (area1Name && area2Name && area3Name) {
+      dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
+      dispatch(fetchingDateData(area1Name, area2Name, area3Name));
+      dispatch(fetchingDessertData(area1Name, area2Name, area3Name));
+      dispatch(fetchingJapaneseData(area1Name, area2Name, area3Name));
+      dispatch(fetchingKoreanData(area1Name, area2Name, area3Name));
+      dispatch(fetchingNearBy(area1Name, area2Name, area3Name));
     }
-  }, [addressReducer.loading]);
-
-  useEffect(() => {
-    if (!koreanReducer.loading) {
-      console.log(koreanReducer.matzipList);
-      console.log('한식 호출');
-    }
-  }, [koreanReducer.loading]);
+  }, [addressReducer.address]);
 
   const getCurrentLocation = () => {
     //alert("callLocation Called");
