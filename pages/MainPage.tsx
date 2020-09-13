@@ -17,6 +17,7 @@ import InitialScreenComponent from '../components/InitialScreenComponent';
 import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
 import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
+import {fetchingChineseData} from '../actions/ChineseDataListActions';
 import {getLocation} from '../actions/LocationActions';
 
 type Props = {
@@ -78,8 +79,10 @@ const MainPage = ({navigation}: Props) => {
 
   useEffect(() => {
     if (!addressReducer.loading) {
-      console.log('주소를 불러옴');
-      console.log(addressReducer.address.area1Name);
+      const {area1Name, area2Name, area3Name} = addressReducer.address;
+      if (area1Name && area2Name && area3Name) {
+        dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
+      }
     }
   }, [addressReducer.loading]);
 

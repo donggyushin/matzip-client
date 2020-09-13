@@ -16,10 +16,10 @@ export const fetchingMatzipData = (
   area3Name: string,
   category: string,
 ) => async (dispatch: Dispatch<MatzipDataListDispatchType>) => {
+  dispatch({
+    type: MATZIP_DATA_LIST_LOADING,
+  });
   try {
-    dispatch({
-      type: MATZIP_DATA_LIST_LOADING,
-    });
     const response = await axios.get(
       `${ENDPOINT}/matzip?area1Name=${area1Name}&area2Name=${area2Name}&area3Name=${area3Name}&category=${category}`,
     );
