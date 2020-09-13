@@ -12,6 +12,7 @@ import {
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {CategoryType} from '../types/Types';
 import Geolocation from '@react-native-community/geolocation';
 import InitialScreenComponent from '../components/InitialScreenComponent';
 import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
@@ -120,7 +121,7 @@ const MainPage = ({navigation}: Props) => {
     );
   };
 
-  const goToListPage = (category: string) => {
+  const goToListPage = (category: CategoryType) => {
     if (addressReducer.loading || addressReducer.error) {
       Alert.alert('맛집찾아줘', '현재 유저의 위치가 파악되지 않았습니다.');
       return;
