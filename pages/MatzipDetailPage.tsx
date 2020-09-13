@@ -409,15 +409,21 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
             )}
             <DividerComponent />
           </View>
-          <Text
+          <View
             style={{
-              color: COLORS.gray,
-              ...styles.fontSize,
+              flexDirection: 'row',
+              marginTop: 20,
+              width: '88%',
+              justifyContent: 'flex-start',
               marginBottom: 10,
-              marginTop: 40,
             }}>
-            방문자 사진
-          </Text>
+            <Image
+              style={styles.iconImage}
+              source={require('../assets/icons8-photo-gallery-100.png')}
+            />
+            <Text style={styles.fontSize}>{'방문자 사진'}</Text>
+          </View>
+
           <View
             style={{
               width: windowWidth,
@@ -440,6 +446,9 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                 </TouchableOpacity>
               );
             })}
+          </View>
+          <View style={{width: '88%'}}>
+            <DividerComponent />
           </View>
         </ScrollView>
       </SafeAreaView>
