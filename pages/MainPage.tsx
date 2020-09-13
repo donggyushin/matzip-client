@@ -19,6 +19,7 @@ import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
 import {fetchingChineseData} from '../actions/ChineseDataListActions';
 import {fetchingDateData} from '../actions/DateDataListActions';
+import {fetchingDessertData} from '../actions/DessertDataListActions';
 import {getLocation} from '../actions/LocationActions';
 
 type Props = {
@@ -85,16 +86,17 @@ const MainPage = ({navigation}: Props) => {
       if (area1Name && area2Name && area3Name) {
         dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
         dispatch(fetchingDateData(area1Name, area2Name, area3Name));
+        dispatch(fetchingDessertData(area1Name, area2Name, area3Name));
       }
     }
   }, [addressReducer.loading]);
 
   useEffect(() => {
-    if (!dateReducer.loading) {
-      console.log(dateReducer.matzipList);
-      console.log('데이트 호출');
+    if (!dessertReducer.loading) {
+      console.log(dessertReducer.matzipList);
+      console.log('디저트 호출');
     }
-  }, [dateReducer.loading]);
+  }, [dessertReducer.loading]);
 
   const getCurrentLocation = () => {
     //alert("callLocation Called");
