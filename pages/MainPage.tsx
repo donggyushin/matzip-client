@@ -22,6 +22,7 @@ import {fetchingChineseData} from '../actions/ChineseDataListActions';
 import {fetchingDateData} from '../actions/DateDataListActions';
 import {fetchingDessertData} from '../actions/DessertDataListActions';
 import {fetchingJapaneseData} from '../actions/JapaneseDataListActions';
+import {fetchingKoreanData} from '../actions/KoreanDataListActions';
 import {getLocation} from '../actions/LocationActions';
 
 type Props = {
@@ -90,16 +91,17 @@ const MainPage = ({navigation}: Props) => {
         dispatch(fetchingDateData(area1Name, area2Name, area3Name));
         dispatch(fetchingDessertData(area1Name, area2Name, area3Name));
         dispatch(fetchingJapaneseData(area1Name, area2Name, area3Name));
+        dispatch(fetchingKoreanData(area1Name, area2Name, area3Name));
       }
     }
   }, [addressReducer.loading]);
 
   useEffect(() => {
-    if (!japaneseReducer.loading) {
-      console.log(japaneseReducer.matzipList);
-      console.log('일식 호출');
+    if (!koreanReducer.loading) {
+      console.log(koreanReducer.matzipList);
+      console.log('한식 호출');
     }
-  }, [japaneseReducer.loading]);
+  }, [koreanReducer.loading]);
 
   const getCurrentLocation = () => {
     //alert("callLocation Called");
