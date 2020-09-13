@@ -39,7 +39,12 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
     setWorktimeExpanded((snapshot) => !snapshot);
   };
 
-  const renderWorkTime = () => {};
+  const openImageDetailModal = (imageUrl: string) => {
+    navigation.navigate('ImageModal', {
+      imageUrl,
+      title: route.params.title,
+    });
+  };
 
   if (matzipDetailReducer.loading) {
     return <LoadingComponent />;
@@ -365,7 +370,7 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
                 {matzipDetailReducer.matzip.menus.map((data, index) => {
                   if (matzipDetailReducer.matzip.menus.length - 1 === index) {
                     return (
-                      <View>
+                      <View key={index}>
                         <MenuComponent menu={data} key={index} />
                         {matzipDetailReducer.matzip.menuUrl.length !== 0 && (
                           <View
@@ -403,6 +408,38 @@ const MatzipDetailPage = ({route, navigation}: MatzipDetailProps) => {
               </View>
             )}
             <DividerComponent />
+          </View>
+          <Text
+            style={{
+              color: COLORS.gray,
+              ...styles.fontSize,
+              marginBottom: 10,
+              marginTop: 40,
+            }}>
+            방문자 사진
+          </Text>
+          <View
+            style={{
+              width: windowWidth,
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap',
+            }}>
+            {matzipDetailReducer.matzip.visitorsPhotos.map((photo, index) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => openImageDetailModal(photo)}>
+                  <Image
+                    style={{
+                      width: windowWidth / 3,
+                      height: windowWidth / 3,
+                    }}
+                    source={{uri: photo}}
+                  />
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </ScrollView>
       </SafeAreaView>
