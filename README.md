@@ -17,8 +17,7 @@ android device의 위치 받아와주는 부분 구현해주시면 감사하겠�
 ## Installation
  - git clone https://github.com/donggyushin/matzip-client.git
  - cd matzip-client
- - yarn install
- - cd iod && pod install && cd ..
+ - yarn install:pod
  <br/><br/>
  
 
