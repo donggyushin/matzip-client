@@ -1,38 +1,11 @@
-import {Alert, FlatList, SafeAreaView} from 'react-native';
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {FlatList, SafeAreaView} from 'react-native';
 
-import {APP_NAME} from '../constants/Constants';
-import LoadingComponent from '../components/LoadingComponent';
 import MatzipDataCellComponent from '../components/MatzipDataCell';
 import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
 import {MatzipListProps} from '../navigations/MainStackNavigation';
-import {RootReducerType} from '../Store';
-import {fetchingMatzipData} from '../actions/MatzipDataListActions';
+import React from 'react';
 
 const MatzipListPage = ({route, navigation}: MatzipListProps) => {
-  const dispatch = useDispatch();
-  const matzipListDataState = useSelector(
-    (state: RootReducerType) => state.MatzipDataListReducer,
-  );
-
-  useEffect(() => {
-    callFetchingMatzipListData();
-  }, []);
-
-  const callFetchingMatzipListData = () => {
-    const {area1Name, area2Name, area3Name, category} = route.params;
-    let categoryString = category;
-    if (categoryString === '양식') {
-      categoryString = '데이트';
-    } else if (categoryString === '중식') {
-      categoryString = '중국집';
-    }
-    dispatch(
-      fetchingMatzipData(area1Name, area2Name, area3Name, categoryString),
-    );
-  };
-
   const goToDetail = (matzipData: MatzipDataType) => {
     navigation.navigate('MatzipDetailPage', {
       detailPageUrl: matzipData.detailPageUrl,
@@ -40,37 +13,20 @@ const MatzipListPage = ({route, navigation}: MatzipListProps) => {
     });
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
-
-  if (matzipListDataState.error) {
-    Alert.alert(
-      APP_NAME,
-      matzipListDataState.error,
-      [{text: 'OK', onPress: goBack}],
-      {cancelable: false},
-    );
-  }
-
-  if (matzipListDataState.loading) {
-    return <LoadingComponent />;
-  } else {
-    return (
-      <SafeAreaView>
-        <FlatList
-          data={matzipListDataState.matzipList}
-          keyExtractor={(_, index) => `${index}`}
-          renderItem={(data) => (
-            <MatzipDataCellComponent
-              goToDetail={goToDetail}
-              matzipDataCell={data.item}
-            />
-          )}
-        />
-      </SafeAreaView>
-    );
-  }
+  return (
+    <SafeAreaView>
+      <FlatList
+        data={route.params.matzipList}
+        keyExtractor={(_, index) => `${index}`}
+        renderItem={(data) => (
+          <MatzipDataCellComponent
+            goToDetail={goToDetail}
+            matzipDataCell={data.item}
+          />
+        )}
+      />
+    </SafeAreaView>
+  );
 };
 
 export default MatzipListPage;
