@@ -10,14 +10,17 @@
 
 import 'react-native-gesture-handler'
 
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import store, { RootReducerType } from './Store'
+
+import ErrorModal from './components/ErrorModal';
 import MainStackNavigation from './navigations/MainStackNavigation'
 import { NavigationContainer } from '@react-navigation/native'
-import { Provider } from 'react-redux'
 import React from 'react';
 import {
-StatusBar
+  StatusBar
 } from 'react-native';
-import store from './Store'
+import { deleteError } from './actions/ErrorReducerActions';
 
 declare const global: { HermesInternal: null | {} };
 
@@ -35,9 +38,16 @@ const App = () => {
 
 const Matzip = () => {
 
+  const ErrorReducer = useSelector((state: RootReducerType) => state.ErrorReducer)
+  const dispatch = useDispatch()
+
+  const makeErrorWhiteSpaceInErrorReducer = () => {
+    dispatch(deleteError())
+  }
 
   return <NavigationContainer>
     <MainStackNavigation />
+    <ErrorModal closeModal={makeErrorWhiteSpaceInErrorReducer} errorMessage={ErrorReducer.error} visible={ErrorReducer.error ? true : false} />
   </NavigationContainer>
 }
 
