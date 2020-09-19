@@ -16,6 +16,7 @@ import {CategoryType} from '../types/Types';
 import Geolocation from '@react-native-community/geolocation';
 import InitialScreenComponent from '../components/InitialScreenComponent';
 import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
+import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
 import {RootReducerType} from '../Store';
 import {fetchAddress} from '../actions/AddressActions';
 import {fetchingChineseData} from '../actions/ChineseDataListActions';
@@ -125,11 +126,37 @@ const MainPage = ({navigation}: Props) => {
       return;
     }
 
+    let matzipList: MatzipDataType[] = [];
+
+    switch (category) {
+      case '데이트':
+        matzipList = dateReducer.matzipList;
+        break;
+      case '디저트':
+        matzipList = dessertReducer.matzipList;
+        break;
+      case '맛집':
+        matzipList = nearByReducer.matzipList;
+        break;
+      case '일식':
+        matzipList = japaneseReducer.matzipList;
+        break;
+      case '중식':
+        matzipList = chineseReducer.matzipList;
+        break;
+      case '한식':
+        matzipList = koreanReducer.matzipList;
+        break;
+      default:
+        break;
+    }
+
     navigation.navigate('MatzipListPage', {
       area1Name: addressReducer.address.area1Name,
       area2Name: addressReducer.address.area2Name,
       area3Name: addressReducer.address.area3Name,
       category,
+      matzipList,
     });
   };
 

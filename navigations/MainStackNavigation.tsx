@@ -5,6 +5,7 @@ import {
 
 import ImageDetailModal from '../components/ImageDetailModal';
 import MainPage from '../pages/MainPage';
+import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
 import MatzipDetailPage from '../pages/MatzipDetailPage';
 import MatzipListPage from '../pages/MatzipListPage';
 import React from 'react';
@@ -17,6 +18,7 @@ type StackParamList = {
     area2Name: string;
     area3Name: string;
     category: string;
+    matzipList: MatzipDataType[];
   };
   MatzipDetailPage: {
     detailPageUrl: string;
