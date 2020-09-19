@@ -6,7 +6,7 @@ import {
 interface InitialState {
   loading: boolean;
   matzip: MatzipDetailData;
-  error: string;
+
 }
 
 const initialState: InitialState = {
@@ -30,7 +30,7 @@ const initialState: InitialState = {
     blogReviews: [],
     mapUrl: '',
   },
-  error: '',
+
 };
 
 const MatzipDetailDataReducer = (
@@ -38,8 +38,6 @@ const MatzipDetailDataReducer = (
   action: MatzipDetailDispatchType,
 ): InitialState => {
   switch (action.type) {
-    case 'MATZIP_DETAIL_FETCH_FAIL':
-      return fetchingFail(state, action);
 
     case 'MATZIP_DETAIL_FETCH_SUCCESS':
       return fetchingSuccess(state, action);
@@ -55,18 +53,6 @@ const MatzipDetailDataReducer = (
   }
 };
 
-const fetchingFail = (
-  state: InitialState,
-  action: MatzipDetailDispatchType,
-): InitialState => {
-  if (action.type !== 'MATZIP_DETAIL_FETCH_FAIL') return state;
-  const error = action.payload;
-  return {
-    ...state,
-    error,
-    loading: false,
-  };
-};
 
 const fetchingSuccess = (
   state: InitialState,
@@ -78,7 +64,6 @@ const fetchingSuccess = (
     ...state,
     loading: false,
     matzip,
-    error: '',
   };
 };
 

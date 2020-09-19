@@ -2,17 +2,16 @@ import AddressReducer from './AddressReducer';
 import ChineseDataListReducer from './ChineseDataListReducer';
 import DateDataListReducer from './DateDataListReducer';
 import DessertDataListReducer from './DessertDataListReducer';
+import ErrorReducer from './ErrorReducer'
 import JapaneseDataListReducer from './JapaneseDataListReducer';
 import KoreanDataListReducer from './KoreanDataListReducer';
 import LocationReducer from './LocationReducer';
-import MatzipDataListReducer from './MatzipDataListReducer';
 import MatzipDetailDataReducer from './MatzipDetailDataReducer';
 import NearByDataListReducer from './NearByDataListReducer';
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   AddressReducer,
-  MatzipDataListReducer,
   LocationReducer,
   MatzipDetailDataReducer,
   ChineseDataListReducer,
@@ -21,6 +20,7 @@ const rootReducer = combineReducers({
   JapaneseDataListReducer,
   KoreanDataListReducer,
   NearByDataListReducer,
+  ErrorReducer
 });
 
 export default rootReducer;

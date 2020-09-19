@@ -1,8 +1,8 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import {COLORS} from '../constants/Constants';
-import {Dimensions} from 'react-native';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
+import { COLORS } from '../constants/Constants';
+import { Dimensions } from 'react-native';
+import { MatzipDataType } from '../types/Types';
 import React from 'react';
 
 interface Props {
@@ -85,7 +85,7 @@ const MatzipDataCellComponent: React.FunctionComponent<Props> = ({
             />
           </View>
         )}
-        <View style={{...styles.row, height: 38}}>
+        <View style={{ ...styles.row, height: 38 }}>
           <Text style={styles.title}>{matzipDataCell.title}</Text>
           {matzipDataCell.category.length !== 0 && (
             <Text style={styles.category}>{matzipDataCell.category}</Text>

@@ -9,29 +9,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {CategoryType} from '../types/Types';
+import { CategoryType } from '../types/Types';
 import Geolocation from '@react-native-community/geolocation';
 import InitialScreenComponent from '../components/InitialScreenComponent';
-import {MainPageNavigationProp} from '../navigations/MainStackNavigation';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
-import {RootReducerType} from '../Store';
-import {fetchAddress} from '../actions/AddressActions';
-import {fetchingChineseData} from '../actions/ChineseDataListActions';
-import {fetchingDateData} from '../actions/DateDataListActions';
-import {fetchingDessertData} from '../actions/DessertDataListActions';
-import {fetchingJapaneseData} from '../actions/JapaneseDataListActions';
-import {fetchingKoreanData} from '../actions/KoreanDataListActions';
-import {fetchingNearBy} from '../actions/NearByDataListActions';
-import {getLocation} from '../actions/LocationActions';
+import { MainPageNavigationProp } from '../navigations/MainStackNavigation';
+import { MatzipDataType } from '../types/Types';
+import { RootReducerType } from '../Store';
+import { fetchAddress } from '../actions/AddressActions';
+import { fetchingChineseData } from '../actions/ChineseDataListActions';
+import { fetchingDateData } from '../actions/DateDataListActions';
+import { fetchingDessertData } from '../actions/DessertDataListActions';
+import { fetchingJapaneseData } from '../actions/JapaneseDataListActions';
+import { fetchingKoreanData } from '../actions/KoreanDataListActions';
+import { fetchingNearBy } from '../actions/NearByDataListActions';
+import { getLocation } from '../actions/LocationActions';
 
 type Props = {
   navigation: MainPageNavigationProp;
 };
 
-const MainPage = ({navigation}: Props) => {
+const MainPage = ({ navigation }: Props) => {
   const dispatch = useDispatch();
   const locationReducer = useSelector(
     (state: RootReducerType) => state.LocationReducer,
@@ -89,7 +89,7 @@ const MainPage = ({navigation}: Props) => {
 
   // 모든 데이터를 호출
   useEffect(() => {
-    const {area1Name, area2Name, area3Name} = addressReducer.address;
+    const { area1Name, area2Name, area3Name } = addressReducer.address;
     if (area1Name && area2Name && area3Name) {
       dispatch(fetchingChineseData(area1Name, area2Name, area3Name));
       dispatch(fetchingDateData(area1Name, area2Name, area3Name));
@@ -116,7 +116,7 @@ const MainPage = ({navigation}: Props) => {
         Alert.alert('맛집찾아줘', error.message);
         setRefreshing(false);
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   };
 
@@ -152,9 +152,6 @@ const MainPage = ({navigation}: Props) => {
     }
 
     navigation.navigate('MatzipListPage', {
-      area1Name: addressReducer.address.area1Name,
-      area2Name: addressReducer.address.area2Name,
-      area3Name: addressReducer.address.area3Name,
       category,
       matzipList,
     });
@@ -186,36 +183,36 @@ const MainPage = ({navigation}: Props) => {
               ...styles.shadowBox,
             }}
             onPress={() => goToListPage('맛집')}>
-            <Text style={{...styles.text}}>근처맛집</Text>
+            <Text style={{ ...styles.text }}>근처맛집</Text>
           </TouchableOpacity>
-          <View style={{...styles.row}}>
+          <View style={{ ...styles.row }}>
             <TouchableOpacity
               onPress={() => goToListPage('한식')}
-              style={{...styles.column, ...styles.shadowBox}}>
-              <Text style={{...styles.text}}>한식</Text>
+              style={{ ...styles.column, ...styles.shadowBox }}>
+              <Text style={{ ...styles.text }}>한식</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => goToListPage('일식')}
-              style={{...styles.column, ...styles.shadowBox}}>
-              <Text style={{...styles.text}}>일식</Text>
+              style={{ ...styles.column, ...styles.shadowBox }}>
+              <Text style={{ ...styles.text }}>일식</Text>
             </TouchableOpacity>
           </View>
-          <View style={{...styles.row}}>
+          <View style={{ ...styles.row }}>
             <TouchableOpacity
               onPress={() => goToListPage('데이트')}
-              style={{...styles.column, ...styles.shadowBox}}>
-              <Text style={{...styles.text}}>데이트</Text>
+              style={{ ...styles.column, ...styles.shadowBox }}>
+              <Text style={{ ...styles.text }}>데이트</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => goToListPage('중식')}
-              style={{...styles.column, ...styles.shadowBox}}>
-              <Text style={{...styles.text}}>중식</Text>
+              style={{ ...styles.column, ...styles.shadowBox }}>
+              <Text style={{ ...styles.text }}>중식</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
             onPress={() => goToListPage('디저트')}
-            style={{...styles.row, flex: 0.7, ...styles.shadowBox}}>
-            <Text style={{...styles.text}}>디저트</Text>
+            style={{ ...styles.row, flex: 0.7, ...styles.shadowBox }}>
+            <Text style={{ ...styles.text }}>디저트</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

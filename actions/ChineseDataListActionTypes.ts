@@ -1,8 +1,9 @@
-import {MatzipDataType} from './MatzipDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
+import { postError } from './ErrorReducerActionTypes';
 
 export const CHINESE_LOADING = 'CHINESE_LOADING';
 export const CHINESE_FETCHING_DATA = 'CHINESE_FETCHING_DATA';
-export const CHINESE_ERROR = 'CHINESE_ERROR';
+
 
 interface chineseLoading {
   type: typeof CHINESE_LOADING;
@@ -13,12 +14,8 @@ interface chineseFetchingData {
   payload: MatzipDataType[];
 }
 
-interface chineseError {
-  type: typeof CHINESE_ERROR;
-  payload: string;
-}
 
 export type ChineseDataListDispatchType =
-  | chineseError
+
   | chineseFetchingData
-  | chineseLoading;
+  | chineseLoading | postError;

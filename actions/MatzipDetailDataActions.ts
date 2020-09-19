@@ -1,5 +1,4 @@
 import {
-  MATZIP_DETAIL_FETCH_FAIL,
   MATZIP_DETAIL_FETCH_SUCCESS,
   MATZIP_DETAIL_LOADING,
   MATZIP_DETAIL_STOP_LOADING,
@@ -7,8 +6,8 @@ import {
   MatzipDetailDispatchType,
 } from './MatzipDetailDataActionTypes';
 
-import {Dispatch} from 'redux';
-import {ENDPOINT} from '../constants/Constants';
+import { Dispatch } from 'redux';
+import { ENDPOINT } from '../constants/Constants';
 import axios from 'axios';
 
 export const fetchMatzipDetailData = (url: string) => async (
@@ -27,8 +26,8 @@ export const fetchMatzipDetailData = (url: string) => async (
     });
   } catch (err) {
     dispatch({
-      type: MATZIP_DETAIL_FETCH_FAIL,
-      payload: '데이터를 받아오는데 실패하였습니다. ',
+      type: 'POST_ERROR',
+      payload: '음식점 데이터를 불러오던 도중에 에러가 발생하였습니다 ㅠ_ㅠ 개발자에게 문의해주세요!'
     });
   }
 

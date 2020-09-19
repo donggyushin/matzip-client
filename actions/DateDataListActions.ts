@@ -1,13 +1,12 @@
 import {
-  DATE_ERROR,
   DATE_FETCHING_DATA,
   DATE_LOADING,
   DateDataListDispatchType,
 } from './DateDataListActionTypes';
 
-import {Dispatch} from 'redux';
-import {ENDPOINT} from '../constants/Constants';
-import {MatzipDataType} from './MatzipDataListActionTypes';
+import { Dispatch } from 'redux';
+import { ENDPOINT } from '../constants/Constants';
+import { MatzipDataType } from '../types/Types';
 import axios from 'axios';
 
 export const fetchingDateData = (
@@ -30,9 +29,8 @@ export const fetchingDateData = (
     });
   } catch (err) {
     return dispatch({
-      type: DATE_ERROR,
-      payload:
-        '주변에 있는 맛집 데이터를 가져오지 못하였습니다 ㅠ.ㅠ 관리자에게 문의해주세요',
+      type: 'POST_ERROR',
+      payload: '근처 데이트 음식점을 불러오는데 에러가 발생하였습니다 ㅠ_ㅠ 개발자에게 문의해주세요!'
     });
   }
 };

@@ -5,18 +5,15 @@ import {
 
 import ImageDetailModal from '../components/ImageDetailModal';
 import MainPage from '../pages/MainPage';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
 import MatzipDetailPage from '../pages/MatzipDetailPage';
 import MatzipListPage from '../pages/MatzipListPage';
 import React from 'react';
-import {RouteProp} from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 
 type StackParamList = {
   MainPage: undefined;
   MatzipListPage: {
-    area1Name: string;
-    area2Name: string;
-    area3Name: string;
     category: string;
     matzipList: MatzipDataType[];
   };
@@ -88,7 +85,7 @@ const MainStackNavigation = () => {
       <Stack.Screen
         name={'MatzipListPage'}
         component={MatzipListPage}
-        options={({route}: MatzipListProps) => ({
+        options={({ route }: MatzipListProps) => ({
           title:
             route.params.category === '맛집'
               ? '근처맛집'
@@ -98,7 +95,7 @@ const MainStackNavigation = () => {
       <Stack.Screen
         name={'MatzipDetailPage'}
         component={MatzipDetailPage}
-        options={({route}: MatzipDetailProps) => ({
+        options={({ route }: MatzipDetailProps) => ({
           title: route.params.title,
         })}
       />
@@ -112,10 +109,10 @@ const RootStackScreen = () => {
       <RootStack.Screen
         name={'Main'}
         component={MainStackNavigation}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <RootStack.Screen
-        options={({route}: ImageModalProps) => ({
+        options={({ route }: ImageModalProps) => ({
           headerLeft: () => null,
           title: route.params.title,
         })}

@@ -1,16 +1,16 @@
-import {JapaneseDataListDispatchType} from '../actions/JapaneseDataListActionTypes';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
+import { JapaneseDataListDispatchType } from '../actions/JapaneseDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
 
 interface InitialState {
   matzipList: MatzipDataType[];
   loading: boolean;
-  error: string;
+
 }
 
 const initialState: InitialState = {
   matzipList: [],
   loading: true,
-  error: '',
+
 };
 
 const JapaneseDataListReducer = (
@@ -20,8 +20,7 @@ const JapaneseDataListReducer = (
   switch (action.type) {
     case 'JAPANESE_LOADING':
       return loading(state, action);
-    case 'JAPANESE_ERROR':
-      return error(state, action);
+
     case 'JAPANESE_FETCHING_DATA':
       return fetching(state, action);
     default:
@@ -37,25 +36,11 @@ const fetching = (
   const matzipList = action.payload;
   return {
     ...state,
-    error: '',
     loading: false,
     matzipList,
   };
 };
 
-const error = (
-  state: InitialState,
-  action: JapaneseDataListDispatchType,
-): InitialState => {
-  if (action.type !== 'JAPANESE_ERROR') return state;
-  const error = action.payload;
-  return {
-    ...state,
-    error,
-    loading: false,
-    matzipList: [],
-  };
-};
 
 const loading = (
   state: InitialState,
@@ -64,7 +49,6 @@ const loading = (
   if (action.type !== 'JAPANESE_LOADING') return state;
   return {
     ...state,
-    error: '',
     loading: true,
     matzipList: [],
   };

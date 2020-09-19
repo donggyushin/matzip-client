@@ -1,13 +1,12 @@
 import {
-  KOREAN_ERROR,
   KOREAN_FETCHING,
   KOREAN_LOADING,
   KoreanDataListDispatchType,
 } from './KoreanDataListActionTypes';
 
-import {Dispatch} from 'redux';
-import {ENDPOINT} from '../constants/Constants';
-import {MatzipDataType} from './MatzipDataListActionTypes';
+import { Dispatch } from 'redux';
+import { ENDPOINT } from '../constants/Constants';
+import { MatzipDataType } from '../types/Types';
 import axios from 'axios';
 
 export const fetchingKoreanData = (
@@ -30,9 +29,8 @@ export const fetchingKoreanData = (
     });
   } catch (err) {
     return dispatch({
-      type: KOREAN_ERROR,
-      payload:
-        '주변에 있는 맛집 데이터를 가져오지 못하였습니다 ㅠ.ㅠ 관리자에게 문의해주세요',
+      type: 'POST_ERROR',
+      payload: '근처에 있던 한식 음식점 데이터를 불러오다 에러가 발생하였습니다 ㅠ_ㅠ 개발자에게 문의해주세요!'
     });
   }
 };

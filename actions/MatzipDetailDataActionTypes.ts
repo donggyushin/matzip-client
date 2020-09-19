@@ -1,5 +1,6 @@
+import { postError } from "./ErrorReducerActionTypes";
+
 export const MATZIP_DETAIL_FETCH_SUCCESS = 'MATZIP_DETAIL_FETCH_SUCCESS';
-export const MATZIP_DETAIL_FETCH_FAIL = 'MATZIP_DETAIL_FETCH_FAIL';
 export const MATZIP_DETAIL_STOP_LOADING = 'MATZIP_DETAIL_STOP_LOADING';
 export const MATZIP_DETAIL_LOADING = 'MATZIP_DETAIL_LOADING';
 
@@ -51,10 +52,6 @@ interface MatzipDetailFetchSuccess {
   payload: MatzipDetailData;
 }
 
-interface MatzipDetailFetchFail {
-  type: typeof MATZIP_DETAIL_FETCH_FAIL;
-  payload: string;
-}
 
 interface MatzipDetailStopLoading {
   type: typeof MATZIP_DETAIL_STOP_LOADING;
@@ -66,6 +63,6 @@ interface MatzipDetailLoading {
 
 export type MatzipDetailDispatchType =
   | MatzipDetailFetchSuccess
-  | MatzipDetailFetchFail
+
   | MatzipDetailStopLoading
-  | MatzipDetailLoading;
+  | MatzipDetailLoading | postError;

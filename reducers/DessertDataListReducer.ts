@@ -1,16 +1,16 @@
-import {DessertDataListDispatchType} from '../actions/DessertDataListActionTypes';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
+import { DessertDataListDispatchType } from '../actions/DessertDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
 
 interface InitialState {
   matzipList: MatzipDataType[];
   loading: boolean;
-  error: string;
+
 }
 
 const initialState: InitialState = {
   matzipList: [],
   loading: true,
-  error: '',
+
 };
 
 const DessertDataListReducer = (
@@ -20,8 +20,6 @@ const DessertDataListReducer = (
   switch (action.type) {
     case 'DESSERT_LOADING':
       return loading(state, action);
-    case 'DESSERT_ERROR':
-      return error(state, action);
     case 'DESSERT_FETCHING_DATA':
       return fetchingData(state, action);
     default:
@@ -38,24 +36,10 @@ const fetchingData = (
   return {
     ...state,
     matzipList,
-    error: '',
     loading: false,
   };
 };
 
-const error = (
-  state: InitialState,
-  action: DessertDataListDispatchType,
-): InitialState => {
-  if (action.type !== 'DESSERT_ERROR') return state;
-  const error = action.payload;
-  return {
-    ...state,
-    matzipList: [],
-    loading: false,
-    error,
-  };
-};
 
 const loading = (
   state: InitialState,
@@ -66,7 +50,6 @@ const loading = (
     ...state,
     matzipList: [],
     loading: true,
-    error: '',
   };
 };
 

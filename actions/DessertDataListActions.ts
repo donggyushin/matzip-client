@@ -1,13 +1,12 @@
 import {
-  DESSERT_ERROR,
   DESSERT_FETCHING_DATA,
   DESSERT_LOADING,
   DessertDataListDispatchType,
 } from './DessertDataListActionTypes';
 
-import {Dispatch} from 'redux';
-import {ENDPOINT} from '../constants/Constants';
-import {MatzipDataType} from './MatzipDataListActionTypes';
+import { Dispatch } from 'redux';
+import { ENDPOINT } from '../constants/Constants';
+import { MatzipDataType } from '../types/Types';
 import axios from 'axios';
 
 export const fetchingDessertData = (
@@ -30,9 +29,8 @@ export const fetchingDessertData = (
     });
   } catch (err) {
     return dispatch({
-      type: DESSERT_ERROR,
-      payload:
-        '주변에 있는 맛집 데이터를 가져오지 못하였습니다 ㅠ.ㅠ 관리자에게 문의해주세요',
+      type: 'POST_ERROR',
+      payload: '근처 디저트 음식점을 불러오다 에러가 발생하였습니다 ㅠ_ㅠ 개발자에게 문의해주세요!'
     });
   }
 };
