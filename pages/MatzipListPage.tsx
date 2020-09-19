@@ -1,11 +1,11 @@
-import {FlatList, SafeAreaView} from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 
 import MatzipDataCellComponent from '../components/MatzipDataCell';
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
-import {MatzipListProps} from '../navigations/MainStackNavigation';
+import { MatzipDataType } from '../types/Types';
+import { MatzipListProps } from '../navigations/MainStackNavigation';
 import React from 'react';
 
-const MatzipListPage = ({route, navigation}: MatzipListProps) => {
+const MatzipListPage = ({ route, navigation }: MatzipListProps) => {
   const goToDetail = (matzipData: MatzipDataType) => {
     navigation.navigate('MatzipDetailPage', {
       detailPageUrl: matzipData.detailPageUrl,

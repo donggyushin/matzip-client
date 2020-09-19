@@ -1,16 +1,16 @@
-import {MatzipDataType} from '../actions/MatzipDataListActionTypes';
-import {NearByDataDispatchType} from '../actions/NearByDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
+import { NearByDataDispatchType } from '../actions/NearByDataListActionTypes';
 
 interface InitialState {
   matzipList: MatzipDataType[];
   loading: boolean;
-  error: string;
+
 }
 
 const initialState: InitialState = {
   matzipList: [],
   loading: true,
-  error: '',
+
 };
 
 const NearByDataListReducer = (
@@ -22,26 +22,11 @@ const NearByDataListReducer = (
       return loading(state, action);
     case 'NEAR_BY_FETCHING':
       return fetching(state, action);
-    case 'NEAR_BY_ERROR':
-      return error(state, action);
     default:
       return state;
   }
 };
 
-const error = (
-  state: InitialState,
-  action: NearByDataDispatchType,
-): InitialState => {
-  if (action.type !== 'NEAR_BY_ERROR') return state;
-  const error = action.payload;
-  return {
-    ...state,
-    error,
-    matzipList: [],
-    loading: false,
-  };
-};
 
 const fetching = (
   state: InitialState,
@@ -52,7 +37,6 @@ const fetching = (
   return {
     ...state,
     matzipList,
-    error: '',
     loading: false,
   };
 };
@@ -66,7 +50,6 @@ const loading = (
     ...state,
     loading: true,
     matzipList: [],
-    error: '',
   };
 };
 

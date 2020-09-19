@@ -1,17 +1,13 @@
-import {MatzipDataType} from './MatzipDataListActionTypes';
+import { MatzipDataType } from '../types/Types';
+import { postError } from './ErrorReducerActionTypes';
 
 export const DATE_LOADING = 'DATE_LOADING';
-export const DATE_ERROR = 'DATE_ERROR';
 export const DATE_FETCHING_DATA = 'DATE_FETCHING_DATA';
 
 interface dateLoading {
   type: typeof DATE_LOADING;
 }
 
-interface dateError {
-  type: typeof DATE_ERROR;
-  payload: string;
-}
 
 interface dateFetchingData {
   type: typeof DATE_FETCHING_DATA;
@@ -19,6 +15,6 @@ interface dateFetchingData {
 }
 
 export type DateDataListDispatchType =
-  | dateError
+
   | dateFetchingData
-  | dateLoading;
+  | dateLoading | postError;
