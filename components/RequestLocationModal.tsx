@@ -5,22 +5,30 @@ import React from 'react'
 
 interface Props {
  visible: boolean,
- errorMessage: string,
- closeModal: () => void
+ closeModal: () => void,
+ getCurrentLocation: () => void,
+ requestAuthorize: () => void
 }
 
-const ErrorModal: React.FunctionComponent<Props> = ({ visible, errorMessage, closeModal }) => {
- return <Modal animationType={'fade'} transparent={true} visible={visible}>
+const RequestLocationModal: React.FunctionComponent<Props> = ({ visible, closeModal, requestAuthorize }) => {
+ const allowLocation = () => {
+
+  requestAuthorize()
+  closeModal()
+ }
+ return <Modal animationType={'slide'} transparent={true} visible={visible}>
   <View style={styles.ModalContainer}>
    <View style={styles.Card}>
     <View style={styles.ErrorContainerView}>
      <Text style={[styles.TextThick, styles.TextWhiteColor, styles.TextBig]}>Error!!</Text>
     </View>
     <View style={[styles.ErrorMessageContainer]}>
-     <Text>{errorMessage}</Text>
+     <Text style={{ textAlign: 'center' }}>{"위치 정보를 받아오는데 실패하였습니다."}</Text>
+     <Text style={{ textAlign: 'center' }}>{"'맛집찾아줘' 에서 해당 디바이스에서 위치 정보를 받아오는데 허용하시겠습니까?"}</Text>
     </View>
-    <View style={{ marginBottom: 10 }}>
-     <Button title={'닫기'} onPress={closeModal} />
+    <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: "center" }}>
+     <Button title={'허용'} onPress={allowLocation} />
+     <Button title={'취소'} onPress={closeModal} />
     </View>
    </View>
   </View>
@@ -58,11 +66,12 @@ const styles = StyleSheet.create({
   fontSize: 20
  },
  ErrorMessageContainer: {
-  alignItems: 'center',
+
   paddingTop: 20,
   paddingHorizontal: 10,
-  paddingBottom: 20
+  paddingBottom: 20,
+
  }
 })
 
-export default ErrorModal
+export default RequestLocationModal

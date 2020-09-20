@@ -1,12 +1,16 @@
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
 import React from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const InitialScreenComponent = () => (
+interface Props {
+  visible: boolean
+}
+
+const InitialScreenComponent: React.FunctionComponent<Props> = ({ visible }) => (
   <Spinner
     overlayColor="white"
-    visible={true}
+    visible={visible}
     customIndicator={<LoadingImageAsset />}
   />
 );

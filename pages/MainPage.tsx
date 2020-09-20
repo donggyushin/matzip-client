@@ -17,6 +17,7 @@ import Geolocation from '@react-native-community/geolocation';
 import InitialScreenComponent from '../components/InitialScreenComponent';
 import { MainPageNavigationProp } from '../navigations/MainStackNavigation';
 import { MatzipDataType } from '../types/Types';
+import RequestLocationModal from '../components/RequestLocationModal';
 import { RootReducerType } from '../Store';
 import { fetchAddress } from '../actions/AddressActions';
 import { fetchingChineseData } from '../actions/ChineseDataListActions';
@@ -32,6 +33,9 @@ type Props = {
 };
 
 const MainPage = ({ navigation }: Props) => {
+
+  const [requestLocationModalVisible, setRequestLocationModalVisible] = useState<boolean>(false)
+
   const dispatch = useDispatch();
   const locationReducer = useSelector(
     (state: RootReducerType) => state.LocationReducer,
@@ -113,7 +117,7 @@ const MainPage = ({ navigation }: Props) => {
       },
       (error) => {
         console.log(error);
-        Alert.alert('맛집찾아줘', error.message);
+        makeRequestLocationModalVisibleTrue()
         setRefreshing(false);
       },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -157,16 +161,19 @@ const MainPage = ({ navigation }: Props) => {
     });
   };
 
-  if (
-    chineseReducer.loading ||
-    dateReducer.loading ||
-    dessertReducer.loading ||
-    japaneseReducer.loading ||
-    koreanReducer.loading ||
-    nearByReducer.loading
-  ) {
-    return <InitialScreenComponent />;
+  const makeRequestLocationModalVisibleTrue = () => {
+    setRequestLocationModalVisible(true)
   }
+
+  const makeRequestLocationModalVisibleFalse = () => {
+    setRequestLocationModalVisible(false)
+  }
+
+  const allowLocation = () => {
+    console.log('allow location')
+    Geolocation.requestAuthorization()
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -216,6 +223,13 @@ const MainPage = ({ navigation }: Props) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <InitialScreenComponent visible={chineseReducer.loading ||
+        dateReducer.loading ||
+        dessertReducer.loading ||
+        japaneseReducer.loading ||
+        koreanReducer.loading ||
+        nearByReducer.loading} />
+      <RequestLocationModal requestAuthorize={allowLocation} getCurrentLocation={getCurrentLocation} visible={requestLocationModalVisible} closeModal={makeRequestLocationModalVisibleFalse} />
     </SafeAreaView>
   );
 };

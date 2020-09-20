@@ -37,6 +37,8 @@
 				</dict>
 			</dict>
 		</dict>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>맛집찾아줘에서 근처에 있는 맛집 데이터를 얻어오기 위해서 유저의 위치정보에 접근하기를 원합니다.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>맛집찾아줘에서 근처에 있는 맛집 데이터를 얻어오기 위해서 유저의 위치정보에 접근하기를 원합니다.</string>
 		<key>UILaunchStoryboardName</key>

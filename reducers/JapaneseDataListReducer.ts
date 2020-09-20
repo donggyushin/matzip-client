@@ -9,7 +9,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   matzipList: [],
-  loading: true,
+  loading: false,
 
 };
 
