@@ -17,7 +17,6 @@ import Geolocation from '@react-native-community/geolocation';
 import InitialScreenComponent from '../components/InitialScreenComponent';
 import { MainPageNavigationProp } from '../navigations/MainStackNavigation';
 import { MatzipDataType } from '../types/Types';
-import RequestLocationModal from '../components/RequestLocationModal';
 import { RootReducerType } from '../Store';
 import { fetchAddress } from '../actions/AddressActions';
 import { fetchingChineseData } from '../actions/ChineseDataListActions';
@@ -35,7 +34,7 @@ type Props = {
 
 const MainPage = ({ navigation }: Props) => {
 
-  const [requestLocationModalVisible, setRequestLocationModalVisible] = useState<boolean>(false)
+
 
   const dispatch = useDispatch();
   const locationReducer = useSelector(
@@ -118,7 +117,7 @@ const MainPage = ({ navigation }: Props) => {
       },
       (error) => {
         console.log(error);
-        makeRequestLocationModalVisibleTrue()
+        dispatch(postError("현재 유저의 위치가 파악되지 않았습니다! 설정에서 '맛집찾아줘' 앱의 위치 접근을 허용하고 다시 이용해주세요!"))
         setRefreshing(false);
       },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -127,7 +126,7 @@ const MainPage = ({ navigation }: Props) => {
 
   const goToListPage = (category: CategoryType) => {
     if (addressReducer.loading || addressReducer.error) {
-      dispatch(postError("현재 유저의 위치가 파악되지 않았습니다, 앱을 새로고침해서 다시 이용해주세요"))
+      dispatch(postError("현재 유저의 위치가 파악되지 않았습니다! 설정에서 '맛집찾아줘' 앱의 위치 접근을 허용하고 다시 이용해주세요!"))
       return;
     }
 
@@ -161,18 +160,6 @@ const MainPage = ({ navigation }: Props) => {
       matzipList,
     });
   };
-
-  const makeRequestLocationModalVisibleTrue = () => {
-    setRequestLocationModalVisible(true)
-  }
-
-  const makeRequestLocationModalVisibleFalse = () => {
-    setRequestLocationModalVisible(false)
-  }
-
-  const allowLocation = () => {
-    Geolocation.requestAuthorization()
-  }
 
 
   return (
@@ -229,7 +216,7 @@ const MainPage = ({ navigation }: Props) => {
         japaneseReducer.loading ||
         koreanReducer.loading ||
         nearByReducer.loading} />
-      <RequestLocationModal requestAuthorize={allowLocation} getCurrentLocation={getCurrentLocation} visible={requestLocationModalVisible} closeModal={makeRequestLocationModalVisibleFalse} />
+
     </SafeAreaView>
   );
 };
