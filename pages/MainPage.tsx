@@ -27,6 +27,7 @@ import { fetchingJapaneseData } from '../actions/JapaneseDataListActions';
 import { fetchingKoreanData } from '../actions/KoreanDataListActions';
 import { fetchingNearBy } from '../actions/NearByDataListActions';
 import { getLocation } from '../actions/LocationActions';
+import { postError } from '../actions/ErrorReducerActions';
 
 type Props = {
   navigation: MainPageNavigationProp;
@@ -126,7 +127,7 @@ const MainPage = ({ navigation }: Props) => {
 
   const goToListPage = (category: CategoryType) => {
     if (addressReducer.loading || addressReducer.error) {
-      Alert.alert('맛집찾아줘', '현재 유저의 위치가 파악되지 않았습니다.');
+      dispatch(postError("현재 유저의 위치가 파악되지 않았습니다, 앱을 새로고침해서 다시 이용해주세요"))
       return;
     }
 
@@ -170,7 +171,6 @@ const MainPage = ({ navigation }: Props) => {
   }
 
   const allowLocation = () => {
-    console.log('allow location')
     Geolocation.requestAuthorization()
   }
 
