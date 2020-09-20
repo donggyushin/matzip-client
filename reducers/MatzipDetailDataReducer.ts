@@ -10,7 +10,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  loading: true,
+  loading: false,
   matzip: {
     thumbnails: [],
     title1: '',
